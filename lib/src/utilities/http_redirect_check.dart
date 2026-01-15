@@ -5,11 +5,13 @@ Future<http.Response> fetchWithRedirects(
   int maxRedirects = 7,
   Map<String, String> headers = const {},
   String? userAgent,
+  int? maxBytes,
 }) async {
   const userAgentFallback = 'WhatsApp/2.21.12.21 A';
   Map<String, String>? allHeaders = {
     ...headers,
     'User-Agent': userAgent ?? userAgentFallback,
+    if (maxBytes != null) 'Range': 'bytes=0-${maxBytes - 1}',
   };
   
   // First, check content type with HEAD request
