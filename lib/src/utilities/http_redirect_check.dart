@@ -33,6 +33,15 @@ Future<http.Response> fetchWithRedirects(
     throw Exception('Maximum redirect limit reached');
   }
 
+  final maxLength = 128 * 1024;
+  final contentLength = headResponse.headers['content-length'];
+  if (contentLength != null) {
+    final length = int.tryParse(contentLength);
+    if (length != null && length > maxLength) {
+      throw Exception('Content size exceeds limit: $length bytes (max: $maxLength)');
+    }
+  }
+
   // Check if content type is appropriate (not a file download)
   final contentType = headResponse.headers['content-type'];
   if (contentType != null && _isFileContentType(contentType)) {
