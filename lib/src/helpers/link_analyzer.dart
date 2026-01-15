@@ -77,12 +77,14 @@ class LinkAnalyzer {
     Duration? cache = const Duration(hours: 24),
     Map<String, String> headers = const {},
     String? userAgent = 'WhatsApp/2.21.12.21 A',
+    int? maxBytes,
   }) =>
       getInfo(
         url,
         cache: cache,
         headers: headers,
         userAgent: userAgent,
+        maxBytes: maxBytes,
       );
 
   /// Fetches a [url], validates it, then returns [Metadata].
@@ -91,6 +93,7 @@ class LinkAnalyzer {
     Duration? cache = const Duration(hours: 24),
     Map<String, String> headers = const {},
     String? userAgent,
+    int? maxBytes,
   }) async {
     Metadata? info;
     if ((cache?.inSeconds ?? 0) > 0) {
@@ -118,6 +121,7 @@ class LinkAnalyzer {
               url,
               headers: headers,
               userAgent: userAgent,
+              maxBytes: maxBytes,
             )
           : await getYoutubeData(
               videoId,

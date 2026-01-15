@@ -179,6 +179,7 @@ class AnyLinkPreview extends StatefulWidget {
     Map<String, String>? headers,
     String? userAgent =
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+    int? maxBytes,
   }) async {
     final linkValid = isValidLink(link);
     if (linkValid) {
@@ -189,6 +190,7 @@ class AnyLinkPreview extends StatefulWidget {
         cache: cache,
         headers: headers ?? {},
         userAgent: userAgent,
+        maxBytes: maxBytes,
       );
     } else if (!linkValid) {
       throw Exception('Invalid link');
@@ -204,6 +206,7 @@ class AnyLinkPreview extends StatefulWidget {
     Map<String, String>? headers,
     String? userAgent,
     String? proxyUrl,
+    int? maxBytes,
   }) async {
     try {
       var proxyValid = true;
@@ -216,6 +219,7 @@ class AnyLinkPreview extends StatefulWidget {
         cache: cache,
         headers: headers ?? {},
         userAgent: userAgent,
+        maxBytes: maxBytes,
       );
       if (info == null || info.hasData == false) {
         // if info is null or data is empty ,try to read URL metadata
@@ -225,6 +229,7 @@ class AnyLinkPreview extends StatefulWidget {
           cache: cache,
           headers: headers ?? {},
           userAgent: userAgent,
+          maxBytes: maxBytes,
         );
       }
 
