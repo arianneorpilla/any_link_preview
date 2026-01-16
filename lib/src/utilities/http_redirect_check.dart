@@ -33,7 +33,7 @@ Future<http.Response> fetchWithRedirects(
     throw Exception('Maximum redirect limit reached');
   }
 
-  final maxLength = 128 * 1024;
+  final maxLength = maxBytes ?? 128 * 1024;
   final contentLength = headResponse.headers['content-length'];
   if (contentLength != null) {
     final length = int.tryParse(contentLength);
