@@ -105,7 +105,6 @@ class LinkAnalyzer {
 
     if (!isURL(url)) return null;
 
-
     try {
       // Make our network call
       final videoId = getYouTubeVideoId(url);
@@ -153,7 +152,9 @@ class LinkAnalyzer {
 
   /// Takes an [http.Response] and returns a [Document].
   static Document? responseToDocument(http.Response response) {
-    if (response.statusCode != 200) return null;
+    if (!(response.statusCode >= 200 && response.statusCode < 300)) {
+      return null;
+    }
 
     Document? document;
     try {
